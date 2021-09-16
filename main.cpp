@@ -8,6 +8,7 @@
 #include <SDL.h>
 #include "Screen.h"
 #include "Cell_Field.h"
+#include "Populator.h"
 using namespace std;
 using namespace game_of_life;
 
@@ -29,14 +30,7 @@ int main()
         }
 
         Cell_Field field;
-        // init field with some probability distribution TODO
-        for (int i = 0; i < 100; i++)
-        {
-            for (int j = 0; j < 150; j++)
-            {
-                field.set_alive(i, j);
-            }
-        }
+        populator::populate_field(field, 'n', 10000);
 
         while (true)
         {

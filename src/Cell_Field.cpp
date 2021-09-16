@@ -11,7 +11,7 @@ namespace game_of_life
     const int Cell_Field::FIELD_WIDTH = NR_COLUMNS * Cell::CELL_WIDTH;
     const int Cell_Field::FIELD_HEIGHT = NR_ROWS * Cell::CELL_HEIGHT;
 
-    Cell_Field::Cell_Field() : field(vector<vector<Cell>>(NR_ROWS, vector<Cell>(NR_COLUMNS)))
+    Cell_Field::Cell_Field() : field(vector<vector<Cell>>(NR_ROWS, vector<Cell>(NR_COLUMNS))) // Change to 1-D Array data structure TODO !?
     {
     }
     Cell_Field::~Cell_Field()
