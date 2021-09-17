@@ -17,8 +17,8 @@ namespace game_of_life
     {
 
     public:
-        static const int NR_ROWS = 200;
-        static const int NR_COLUMNS = 200;
+        static const int NR_ROWS = 500;
+        static const int NR_COLUMNS = 500;
         Cell_Field();
         ~Cell_Field();
         void update();

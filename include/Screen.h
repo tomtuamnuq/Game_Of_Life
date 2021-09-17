@@ -23,7 +23,7 @@ namespace game_of_life
     {
     public:
         static const int SCREEN_WIDTH = 800;
-        static const int SCREEN_HEIGHT = 600;
+        static const int SCREEN_HEIGHT = 800;
 
     private:
         SDL_Window *m_window;

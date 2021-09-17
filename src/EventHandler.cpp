@@ -8,7 +8,7 @@
 
 namespace game_of_life
 {
-    EventHandler::EventHandler()
+    EventHandler::EventHandler() : clickListener(nullptr)
     {
     }
 
@@ -25,8 +25,20 @@ namespace game_of_life
             {
                 return false;
             }
+            else
+            {
+                if (clickListener != nullptr && event.type == SDL_MOUSEBUTTONDOWN) // for left only add: && event.button.button == SDL_BUTTON_LEFT
+                {
+                    cout << "Call click Listener " << endl;
+                    clickListener(event.button.x, event.button.y);
+                }
+            }
         }
         return true;
+    }
+    void EventHandler::addClickListener(function<void(int, int)> clickListener)
+    {
+        this->clickListener = clickListener;
     }
 
 } /* namespace game_of_life */

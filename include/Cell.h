@@ -24,8 +24,8 @@ namespace game_of_life
         short active_neighbours; // range 0 to 8
 
     public:
-        static const int CELL_WIDTH = 2;
-        static const int CELL_HEIGHT = 2;
+        static const int CELL_WIDTH = 20;
+        static const int CELL_HEIGHT = 20;
         Cell();
         Cell(const Cell &other);
         ~Cell();
