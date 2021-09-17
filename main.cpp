@@ -18,8 +18,9 @@ const int CELL_WIDTH_ON_SCREEN = floor(RATIO_X * Cell::CELL_WIDTH);
 const int CELL_HEIGHT_ON_SCREEN = floor(RATIO_Y * Cell::CELL_HEIGHT);
 
 void draw_field_to_screen(Cell_Field &field, Screen &screen);
+char read_distribution_from_command(int argc, char *argv[]);
 
-int main()
+int main(int argc, char *argv[])
 {
     {
         Screen screen;
@@ -28,9 +29,9 @@ int main()
             screen.close();
             return 1;
         }
-
+        char distribution_name = read_distribution_from_command(argc, argv);
         Cell_Field field;
-        populator::populate_field(field, 'n', 10000);
+        populator::populate_field(field, distribution_name, 30000);
 
         while (true)
         {
@@ -48,14 +49,26 @@ int main()
     }
     if (debug)
     {
-        cout << "Number of Cells: " << number_of_cells << endl;
+        cout << "Difference in Number of created and destroyed Cells: " << number_of_cells << endl;
         cout << "Number of direct Cells: " << number_of_direct_cells << endl;
-        cout << "Number of copied Cells: " << number_of_copied_cells << endl;
+        cout << "Number of copy constructured Cells: " << number_of_copied_cells << endl;
     }
 
     return 0;
 }
-
+char read_distribution_from_command(int argc, char *argv[])
+{
+    if (argc < 2)
+    {
+        cout << "Using uniform as default " << endl;
+        return 'u';
+    }
+    else
+    {
+        cout << "Using " << *argv[1] << endl;
+        return *argv[1];
+    }
+}
 void draw_field_to_screen(Cell_Field &field, Screen &screen)
 {
     SDL_Rect rect;

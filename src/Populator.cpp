@@ -15,6 +15,8 @@ namespace populator
     mt19937 rng{rd()};
     normal_distribution<> normal;
     uniform_real_distribution<> uniform;
+    negative_binomial_distribution<> binomial(100, 0.5); // number of failures must be high to produce many points
+    exponential_distribution<> exponential;
 
     double normal_rng()
     {
@@ -24,13 +26,21 @@ namespace populator
     {
         return uniform(rng);
     }
+    double binomial_rng()
+    {
+        return binomial(rng);
+    }
+    double exponential_rng()
+    {
+        return exponential(rng);
+    }
 
     void populate_field(Cell_Field &field, char distribution_char, int active_cells)
     {
         if (active_cells < 2)
         {
-            cout << "Must be two or more cells at the start!" << endl;
-            throw logic_error("Must be two or more cells at the start!");
+            cout << "Must be two or more active cells at the start!" << endl;
+            throw logic_error("Must be two or more active cells at the start!");
         }
 
         function<double()> distribution;
@@ -40,7 +50,13 @@ namespace populator
         case 'n': // normal
             distribution = normal_rng;
             break;
-
+        case 'b': // binomial
+            distribution = binomial_rng;
+            break;
+        case 'e': // exponential
+            distribution = exponential_rng;
+            break;
+        case 'u':
         default:
             distribution = uniform_rng;
             break;
@@ -66,6 +82,11 @@ namespace populator
             if (random_y[i] > max_y)
                 max_y = random_y[i];
         }
+        if (debug)
+        {
+            cout << "Max x on Populator: " << max_x << endl;
+            cout << "Min y on Populator: " << min_y << endl;
+        }
         const double range_x = max_x - min_x;
         const double range_y = max_y - min_y;
         const double ratio_x = (Cell_Field::NR_COLUMNS - 1) / range_x;
@@ -84,14 +105,3 @@ namespace populator
     }
 
 } /* namespace populator */
-
-// init field with some probability distribution TODO
-/*
-        for (int i = 0; i < 100; i++)
-        {
-            for (int j = 0; j < 150; j++)
-            {
-                field.set_alive(i, j);
-            }
-        }
-        */
