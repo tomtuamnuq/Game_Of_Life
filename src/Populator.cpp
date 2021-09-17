@@ -39,8 +39,11 @@ namespace populator
     {
         if (active_cells < 2)
         {
-            cout << "Must be two or more active cells at the start!" << endl;
             throw logic_error("Must be two or more active cells at the start!");
+        }
+        if (active_cells > Cell_Field::NR_ROWS * Cell_Field::NR_COLUMNS)
+        {
+            throw logic_error("Must not be more active cells than cells on the field!");
         }
 
         function<double()> distribution;
@@ -100,7 +103,7 @@ namespace populator
         {
             int pos_x = round((random_x[i] - min_x) * ratio_x);
             int pos_y = round((random_y[i] - min_y) * ratio_y);
-            field.set_alive(pos_x, pos_y);
+            field.set_alive(pos_y, pos_x);
         }
     }
 
