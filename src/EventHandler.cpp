@@ -29,7 +29,6 @@ namespace game_of_life
             {
                 if (clickListener != nullptr && event.type == SDL_MOUSEBUTTONDOWN) // for left only add: && event.button.button == SDL_BUTTON_LEFT
                 {
-                    cout << "Call click Listener " << endl;
                     clickListener(event.button.x, event.button.y);
                 }
             }

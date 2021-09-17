@@ -14,10 +14,12 @@
 using namespace std;
 using namespace game_of_life;
 
+const int ACTIVE_CELLS = Cell_Field::NR_ROWS * Cell_Field::NR_COLUMNS;
+
 const float RATIO_SCREEN_TO_FIELD_X = float(Screen::SCREEN_WIDTH) / Cell_Field::FIELD_WIDTH;
 const float RATIO_SCREEN_TO_FIELD_Y = float(Screen::SCREEN_HEIGHT) / Cell_Field::FIELD_HEIGHT;
-const int CELL_WIDTH_ON_SCREEN = round(RATIO_SCREEN_TO_FIELD_X * Cell::CELL_WIDTH);
-const int CELL_HEIGHT_ON_SCREEN = round(RATIO_SCREEN_TO_FIELD_Y * Cell::CELL_HEIGHT);
+const int CELL_WIDTH_ON_SCREEN = ceil(RATIO_SCREEN_TO_FIELD_X * Cell::CELL_WIDTH);
+const int CELL_HEIGHT_ON_SCREEN = ceil(RATIO_SCREEN_TO_FIELD_Y * Cell::CELL_HEIGHT);
 // just for sanity:
 const float RATIO_GRID_TO_SCREEN_X = float(Cell_Field::NR_COLUMNS) / Screen::SCREEN_WIDTH;
 const float RATIO_GRID_TO_SCREEN_Y = float(Cell_Field::NR_ROWS) / Screen::SCREEN_HEIGHT;
@@ -47,9 +49,11 @@ int main(int argc, char *argv[])
             return 1;
         }
         EventHandler event_handler;
-        char distribution_name = read_distribution_from_command(argc, argv);
+
+        char distribution_character = read_distribution_from_command(argc, argv);
+
         Cell_Field field;
-        populator::populate_field(field, distribution_name, 20000);
+        populator::populate_field(field, distribution_character, ACTIVE_CELLS);
         auto clickListener = [&field](int x, int y) -> void
         {
             int pos_x = round(x / CELL_WIDTH_ON_SCREEN);
@@ -76,7 +80,7 @@ int main(int argc, char *argv[])
             float elapsedMS = (end - start) / (float)SDL_GetPerformanceFrequency() * 1000.0f;
             screen.check_for_fps(elapsedMS);
         }
-    }
+    } // to delete resources before debug output
     if (debug)
     {
         cout << "Difference in Number of created and destroyed Cells: " << number_of_cells << endl;

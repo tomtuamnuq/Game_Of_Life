@@ -4,6 +4,9 @@
 * Created on:16.9.21
 * Author: Tom Krüger
 */
+#define NUMBER_OF_ROWS 512
+#define NUMBER_OF_COLUMNS 512
+
 #include <iostream>
 #include <vector>
 #include "Cell.h"
@@ -17,8 +20,8 @@ namespace game_of_life
     {
 
     public:
-        static const int NR_ROWS = 500;
-        static const int NR_COLUMNS = 500;
+        static const int NR_ROWS = NUMBER_OF_ROWS;
+        static const int NR_COLUMNS = NUMBER_OF_COLUMNS;
         Cell_Field();
         ~Cell_Field();
         void update();

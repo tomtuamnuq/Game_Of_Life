@@ -15,7 +15,8 @@ namespace populator
     mt19937 rng{rd()};
     normal_distribution<> normal;
     uniform_real_distribution<> uniform;
-    negative_binomial_distribution<> binomial(100, 0.5); // number of failures must be high to produce many points
+    const int number_of_failures = max(Cell_Field::NR_ROWS, Cell_Field::NR_COLUMNS);
+    negative_binomial_distribution<> binomial(number_of_failures, 0.5); // number of failures must be high to produce many points
     exponential_distribution<> exponential;
 
     double normal_rng()

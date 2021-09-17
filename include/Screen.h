@@ -4,6 +4,7 @@
 * Created on:16.9.21
 * Author: Tom Krüger
 */
+#define FRAMES_PER_SECOND 2
 #include <iostream>
 #include <SDL.h>
 
@@ -16,7 +17,7 @@ namespace game_of_life
     static const SDL_Color WHITE = {255, 255, 255};
     static const SDL_Color BLUE = {0, 0, 255};
     static const SDL_Color BLACK = {0, 0, 0};
-    static const int FPS = 2;
+    static const int FPS = FRAMES_PER_SECOND;
     static const float MS_PER_FRAME = 1000.0f / FPS;
 
     class Screen

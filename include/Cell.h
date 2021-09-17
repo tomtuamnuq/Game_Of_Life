@@ -5,6 +5,8 @@
 * Author: Tom Krüger
 */
 #include <iostream>
+#define WIDTH_OF_CELL 20
+#define HEIGHT_OF_CELL 20
 
 using namespace std;
 
@@ -24,8 +26,8 @@ namespace game_of_life
         short active_neighbours; // range 0 to 8
 
     public:
-        static const int CELL_WIDTH = 20;
-        static const int CELL_HEIGHT = 20;
+        static const int CELL_WIDTH = WIDTH_OF_CELL;
+        static const int CELL_HEIGHT = HEIGHT_OF_CELL;
         Cell();
         Cell(const Cell &other);
         ~Cell();
