@@ -14,3 +14,16 @@ Feel free to alter number of initially active cells in function main as well.
 The user can set an area of active cells by clicking the area on the screen.
 
 This project is just to solidify my basic C++ knowledge after doing the great tutorials at [caveofprogramming] (https://caveofprogramming.com/)
+
+Some screenshots of the program running:
+
+![normal distribution](pics/distribution_normal.png) Normal
+
+
+![binomial distribution](pics/distribution_binomial.png) Binomial
+
+
+![exponential distribution](pics/distribution_exponential.png) Exponential
+
+
+![uniform distribution](pics/distribution_uniform_default.png) Uniform
