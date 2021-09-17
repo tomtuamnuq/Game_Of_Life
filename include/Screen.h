@@ -35,7 +35,6 @@ namespace game_of_life
         void clear();
         void update();
         bool init(const char *window_name);
-        bool processEvents();
         void close();
         void setDrawColor(SDL_Color color);
         void drawFilledRect(const SDL_Rect *rect);

@@ -9,6 +9,8 @@
 #include "Screen.h"
 #include "Cell_Field.h"
 #include "Populator.h"
+#include "EventHandler.h"
+
 using namespace std;
 using namespace game_of_life;
 
@@ -29,6 +31,7 @@ int main(int argc, char *argv[])
             screen.close();
             return 1;
         }
+        EventHandler event_handler;
         char distribution_name = read_distribution_from_command(argc, argv);
         Cell_Field field;
         populator::populate_field(field, distribution_name, 30000);
@@ -39,7 +42,7 @@ int main(int argc, char *argv[])
             field.update();
             draw_field_to_screen(field, screen);
             screen.update();
-            if (!screen.processEvents())
+            if (!event_handler.processEvents())
                 break;
 
             Uint64 end = SDL_GetPerformanceCounter();
