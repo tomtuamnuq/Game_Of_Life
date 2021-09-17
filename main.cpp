@@ -14,10 +14,13 @@
 using namespace std;
 using namespace game_of_life;
 
-const float RATIO_X = float(Screen::SCREEN_WIDTH) / Cell_Field::FIELD_WIDTH;
-const float RATIO_Y = float(Screen::SCREEN_HEIGHT) / Cell_Field::FIELD_HEIGHT;
-const int CELL_WIDTH_ON_SCREEN = floor(RATIO_X * Cell::CELL_WIDTH);
-const int CELL_HEIGHT_ON_SCREEN = floor(RATIO_Y * Cell::CELL_HEIGHT);
+const float RATIO_SCREEN_TO_FIELD_X = float(Screen::SCREEN_WIDTH) / Cell_Field::FIELD_WIDTH;
+const float RATIO_SCREEN_TO_FIELD_Y = float(Screen::SCREEN_HEIGHT) / Cell_Field::FIELD_HEIGHT;
+const int CELL_WIDTH_ON_SCREEN = round(RATIO_SCREEN_TO_FIELD_X * Cell::CELL_WIDTH);
+const int CELL_HEIGHT_ON_SCREEN = round(RATIO_SCREEN_TO_FIELD_Y * Cell::CELL_HEIGHT);
+// just for sanity:
+const float RATIO_GRID_TO_SCREEN_X = float(Cell_Field::NR_COLUMNS) / Screen::SCREEN_WIDTH;
+const float RATIO_GRID_TO_SCREEN_Y = float(Cell_Field::NR_ROWS) / Screen::SCREEN_HEIGHT;
 
 void draw_field_to_screen(Cell_Field &field, Screen &screen);
 char read_distribution_from_command(int argc, char *argv[]);
@@ -25,6 +28,18 @@ char read_distribution_from_command(int argc, char *argv[]);
 int main(int argc, char *argv[])
 {
     {
+        if (debug)
+        {
+            cout << "Ratio x on field: " << RATIO_SCREEN_TO_FIELD_X << endl;
+            cout << "Ratio y on field: " << RATIO_SCREEN_TO_FIELD_Y << endl;
+
+            cout << "cell width on screen: " << CELL_WIDTH_ON_SCREEN << endl;
+            cout << "cell height on screen: " << CELL_HEIGHT_ON_SCREEN << endl;
+
+            cout << "RATIO_GRID_TO_SCREEN_X: " << RATIO_GRID_TO_SCREEN_X << endl;
+            cout << "RATIO_GRID_TO_SCREEN_Y: " << RATIO_GRID_TO_SCREEN_Y << endl;
+        }
+
         Screen screen;
         if (!screen.init("Game Of Life"))
         {
@@ -34,8 +49,20 @@ int main(int argc, char *argv[])
         EventHandler event_handler;
         char distribution_name = read_distribution_from_command(argc, argv);
         Cell_Field field;
-        populator::populate_field(field, distribution_name, 30000);
-
+        populator::populate_field(field, distribution_name, 20000);
+        auto clickListener = [&field](int x, int y) -> void
+        {
+            int pos_x = round(x / CELL_WIDTH_ON_SCREEN);
+            int pos_y = round(y / CELL_HEIGHT_ON_SCREEN);
+            for (int i = pos_y; i < pos_y + 5 && i < Cell_Field::NR_ROWS; i++)
+            {
+                for (int j = pos_x; j < pos_x + 5 && j < Cell_Field::NR_COLUMNS; j++)
+                {
+                    field.set_alive(i, j);
+                }
+            }
+        };
+        event_handler.addClickListener(clickListener);
         while (true)
         {
             Uint64 start = SDL_GetPerformanceCounter();
