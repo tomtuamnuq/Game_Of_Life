@@ -13,7 +13,7 @@ Feel free to alter number of initially active cells in function main as well.
 
 The user can set an area of active cells by clicking the area on the screen.
 
-This project is just to solidify my basic C++ knowledge after doing the great tutorials at [caveofprogramming] (https://caveofprogramming.com/)
+This project is just to solidify my basic C++ knowledge after doing the great tutorials at [caveofprogramming](https://caveofprogramming.com/)
 
 Some screenshots of the program running:
 
